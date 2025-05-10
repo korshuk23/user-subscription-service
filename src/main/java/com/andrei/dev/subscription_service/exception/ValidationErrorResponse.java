@@ -6,8 +6,8 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class ValidationErrorResponse extends ErrorResponse {
     private Map<String, String> validationErrors;
 
