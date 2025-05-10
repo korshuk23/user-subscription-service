@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changelog/changeset/subs_V001__initial.sql
+  - include:
+      file: db/changelog/changeset/subs_V002_indexes.sql
