@@ -33,7 +33,10 @@ public class UserService {
 
     public UserResponseDto getUser(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
+                .orElseThrow(() -> {
+                    log.error("User not found with id: {}", id);
+                    return new NotFoundException("User not found with id: " + id);
+                });
         return userMapper.toDto(user);
     }
 
@@ -41,7 +44,10 @@ public class UserService {
     public UserResponseDto updateUser(Long id, UserUpdateDto dto) {
         validateAtLeastOneFieldPresent(dto);
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
+                .orElseThrow(() -> {
+                    log.error("User not found with id: {}", id);
+                    return new NotFoundException("User not found with id: " + id);
+                });
         userMapper.updateEntity(user, dto);
         log.info("Updated user with id: {}", id);
         return userMapper.toDto(user);
@@ -50,6 +56,7 @@ public class UserService {
     @Transactional
     public void deleteUser(Long id) {
         if (!userRepository.existsById(id)) {
+            log.error("User not found with id: {}", id);
             throw new NotFoundException("User not found with id: " + id);
         }
         userRepository.deleteById(id);
@@ -58,15 +65,18 @@ public class UserService {
 
     private void checkUniqueness(UserCreateDto dto) {
         if (userRepository.existsByEmail(dto.getEmail())) {
+            log.error("Email already in use: {}", dto.getEmail());
             throw new AlreadyExistsException("Email already in use: " + dto.getEmail());
         }
         if (userRepository.existsByUsername(dto.getUsername())) {
+            log.error("Username already in use: {}", dto.getUsername());
             throw new AlreadyExistsException("Username already in use: " + dto.getUsername());
         }
     }
 
     private void validateAtLeastOneFieldPresent(UserUpdateDto dto) {
         if (dto.getEmail() == null && dto.getFirstName() == null && dto.getLastName() == null) {
+            log.error("Attempt to update user with no fields provided");
             throw new IllegalArgumentException("At least one field must be provided for update");
         }
     }
