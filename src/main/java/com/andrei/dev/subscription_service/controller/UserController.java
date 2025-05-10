@@ -1,8 +1,8 @@
 package com.andrei.dev.subscription_service.controller;
 
-import com.andrei.dev.subscription_service.dto.UserCreateDto;
-import com.andrei.dev.subscription_service.dto.UserResponseDto;
-import com.andrei.dev.subscription_service.dto.UserUpdateDto;
+import com.andrei.dev.subscription_service.dto.user.UserCreateDto;
+import com.andrei.dev.subscription_service.dto.user.UserResponseDto;
+import com.andrei.dev.subscription_service.dto.user.UserUpdateDto;
 import com.andrei.dev.subscription_service.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

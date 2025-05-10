@@ -1,4 +1,4 @@
-package com.andrei.dev.subscription_service.dto;
+package com.andrei.dev.subscription_service.dto.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
